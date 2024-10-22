@@ -52,26 +52,31 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
+``
 
-const app = express();
+``const app = express();
 const PORT = process.env.PORT || 5000;
+``
 
 // Middleware
-app.use(cors());
+``app.use(cors());
 app.use(express.json());
+``
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+``mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
+  ``
 
 // Sample route
-app.get('/', (req, res) => {
+``app.get('/', (req, res) => {
   res.send('Welcome to the MERN backend!');
 });
+``
 
 // Start the server
-app.listen(PORT, () => {
+``app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
 ``
@@ -80,30 +85,35 @@ app.listen(PORT, () => {
 
 ``bash
 Copy code
-# backend/.env
+backend/.env
 MONGO_URI=mongodb://mongo:27017/mydatabase
 ``
 
 **B. Create the Dockerfile for Backend dockerfile**
 
 ``Copy code
-# backend/Dockerfile
+backend/Dockerfile
 FROM node:14
+``
 
-# Create app directory
+``Create app directory
 WORKDIR /usr/src/app
+``
 
-# Install app dependencies
+``Install app dependencies
 COPY package*.json ./
 RUN npm install
+``
 
-# Bundle app source
+``Bundle app source
 COPY . .
+``
 
-# Expose the port
+``Expose the port
 EXPOSE 5000
+``
 
-# Start the application
+``Start the application
 CMD ["node", "server.js"]
 ``
 
@@ -137,8 +147,9 @@ javascript
 Copy code
 // frontend/src/App.js
 import React, { useEffect, useState } from 'react';
+``
 
-function App() {
+``function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -162,7 +173,7 @@ export default App;
 
 ``dockerfile
 Copy code
-# frontend/Dockerfile
+frontend/Dockerfile
 FROM node:14 as build
 
 WORKDIR /app
@@ -171,8 +182,9 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
+``
 
-# Serve the app using a simple server
+``Serve the app using a simple server
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
@@ -185,7 +197,7 @@ CMD ["nginx", "-g", "daemon off;"]
 
 ``yaml
 Copy code
-# docker-compose.yml
+docker-compose.yml
 version: '3.8'
 
 services:
@@ -229,8 +241,9 @@ Run Docker Compose:
 Copy code
 docker-compose up --build
 Access the application:
+``
 
-Frontend: http://localhost:3000
+``Frontend: http://localhost:3000
 Backend: http://localhost:5000 (API)
 ``
 
