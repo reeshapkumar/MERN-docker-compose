@@ -126,9 +126,12 @@ npx create-react-app .
 {
   "proxy": "http://backend:5000"
 }
-Create a sample component to fetch data from the backend:
-Create a file App.js in the src directory with the following content:
 ```
+
+**Create a sample component to fetch data from the backend:**
+
+**Create a file App.js in the src directory with the following content:**
+
 ```javascript
 import React, { useEffect, useState } from 'react';
 ```
