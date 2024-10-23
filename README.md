@@ -25,118 +25,104 @@ First, create a directory for your project with the following structure:
 
 **A. Create the Backend Directory Navigate to the backend directory:**
 
-``bash
-Copy code
+```bash
 mkdir backend
 cd backend
 Initialize a new Node.js project:
-``
+```
 
-``bash
-Copy code
+```bash
 npm init -y
 Install required dependencies:
 ``
 
 ``bash
-Copy code
 npm install express mongoose dotenv cors
-``
+```
 
 **Create the server.js file:**
 
-``javascript
-Copy code
-// backend/server.js
+```javascript
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 ``
 
-``const app = express();
+```const app = express();
 const PORT = process.env.PORT || 5000;
-``
+```
 
-// Middleware
-``app.use(cors());
+```app.use(cors());
 app.use(express.json());
-``
+```
 
-// MongoDB Connection
-``mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+```mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err));
-  ``
+```
 
-// Sample route
-``app.get('/', (req, res) => {
+```app.get('/', (req, res) => {
   res.send('Welcome to the MERN backend!');
 });
-``
+```
 
-// Start the server
-``app.listen(PORT, () => {
+```app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-``
+```
 
 **Create a .env file to store environment variables:**
 
-``bash
-Copy code
+```bash
 backend/.env
 MONGO_URI=mongodb://mongo:27017/mydatabase
-``
+```
 
 **B. Create the Dockerfile for Backend dockerfile**
 
-``Copy code
+```Copy code
 backend/Dockerfile
 FROM node:14
-``
+```
 
-``Create app directory
+```Create app directory
 WORKDIR /usr/src/app
-``
+```
 
-``Install app dependencies
+```Install app dependencies
 COPY package*.json ./
 RUN npm install
-``
+```
 
-``Bundle app source
+```Bundle app source
 COPY . .
-``
+```
 
-``Expose the port
+```Expose the port
 EXPOSE 5000
-``
+```
 
-``Start the application
+```Start the application
 CMD ["node", "server.js"]
-``
+```
 
 **3. Frontend Setup (React)**
 
 **A. Create the Frontend Directory Navigate to the frontend directory:**
 
-``bash
-Copy code
+```bash
 cd ../frontend
 Create a new React app (You need to have create-react-app installed):
-``
+```
 
-``bash
-Copy code
+```bash
 npx create-react-app .
-``
+```
 
 **Modify the package.json to include a proxy (for API calls to the backend):**
 
-``json
-Copy code
-// frontend/package.json
+```json
 {
   // ... other configurations
   "proxy": "http://backend:5000"
@@ -147,9 +133,9 @@ javascript
 Copy code
 // frontend/src/App.js
 import React, { useEffect, useState } from 'react';
-``
+```
 
-``function App() {
+```function App() {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
@@ -167,11 +153,11 @@ import React, { useEffect, useState } from 'react';
 }
 
 export default App;
-``
+```
 
 **B. Create the Dockerfile for Frontend**
 
-``dockerfile
+```dockerfile
 Copy code
 frontend/Dockerfile
 FROM node:14 as build
@@ -182,21 +168,20 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 RUN npm run build
-``
+```
 
-``Serve the app using a simple server
+```Serve the app using a simple server
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-``
+```
 
 **4. Docker Compose Setup**
 
 **A. Create the docker-compose.yml file**
 
-``yaml
-Copy code
+```yaml
 docker-compose.yml
 version: '3.8'
 
@@ -226,26 +211,24 @@ services:
 
 volumes:
   mongo-data:
-  ``
+```
   
 **5. Running the Application**
 Navigate to the root of your project directory (where docker-compose.yml is located):
 
-``bash
-Copy code
+```bash
 cd mern-docker-compose
 Run Docker Compose:
-``
+```
 
-``bash
-Copy code
+```bash
 docker-compose up --build
 Access the application:
-``
+```
 
-``Frontend: http://localhost:3000
+```Frontend: http://localhost:3000
 Backend: http://localhost:5000 (API)
-``
+```
 
 **6. Testing the Application**
 
