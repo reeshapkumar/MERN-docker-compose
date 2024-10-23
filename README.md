@@ -128,9 +128,8 @@ npx create-react-app .
 }
 Create a sample component to fetch data from the backend:
 Create a file App.js in the src directory with the following content:
-javascript
-Copy code
-// frontend/src/App.js
+```
+```javascript
 import React, { useEffect, useState } from 'react';
 ```
 
