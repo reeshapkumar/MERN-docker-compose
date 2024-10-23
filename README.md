@@ -5,21 +5,21 @@ Creating a MERN (MongoDB, Express.js, React, Node.js) application using Docker C
 **1. Project Structure**
 First, create a directory for your project with the following structure:
 
-``java
-Copy code
-mern-docker-compose/
+```
 ├── backend/
 │   ├── Dockerfile
 │   ├── package.json
 │   ├── server.js
 │   └── .env
+```
+```
 ├── frontend/
 │   ├── Dockerfile
 │   ├── package.json
 │   ├── src/
 │   └── public/
 ├── docker-compose.yml
-``
+```
 
 **2. Backend Setup (Node.js + Express)**
 
