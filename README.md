@@ -124,7 +124,6 @@ npx create-react-app .
 
 ```json
 {
-  // ... other configurations
   "proxy": "http://backend:5000"
 }
 Create a sample component to fetch data from the backend:
